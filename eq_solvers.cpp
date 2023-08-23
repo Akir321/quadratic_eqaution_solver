@@ -2,7 +2,6 @@
 
 bool isZero (double number)
 {
-
     assert(!isnan(number));
     assert(isfinite(number));
 
@@ -11,59 +10,51 @@ bool isZero (double number)
     return false;
 }
 
-int solveLinear(double coeffs[], const int nCoeffs, double roots[], const int nRoots)
+int solveLinear(linCoeffs coeffs, eqRoots* roots)
 {
-    double a = coeffs[0];
-    double b = coeffs[1];
+    assert(isfinite(coeffs.a));
+    assert(isfinite(coeffs.b));
 
-    assert(isfinite(a));
-    assert(isfinite(b));
+    assert(!isnan(coeffs.a));
+    assert(!isnan(coeffs.b));
 
-    assert(!isnan(a));
-    assert(!isnan(b));
-
-    if (isZero(a)) return isZero(coeffs[1]) ? INF_ROOTS : NO_ROOTS;
-    roots[0] = - b / a;
+    if (isZero(coeffs.a)) return isZero(coeffs.b) ? INF_ROOTS : NO_ROOTS;
+    roots->x1 = - coeffs.b / coeffs.a;
     return ONE_ROOT;
 }
 
-int solveSquare(double coeffs[], const int nCoeffs, double roots[], const int nRoots)
+int solveSquare(sqCoeffs coeffs, eqRoots* roots)
 {
+    assert(isfinite(coeffs.a));
+    assert(isfinite(coeffs.b));
+    assert(isfinite(coeffs.c));
 
-    double a = coeffs[0];
-    double b = coeffs[1];
-    double c = coeffs[2];
+    assert(!isnan(coeffs.a));
+    assert(!isnan(coeffs.b));
+    assert(!isnan(coeffs.a));
 
-    assert(isfinite(a));
-    assert(isfinite(b));
-    assert(isfinite(c));
+    if (isZero(coeffs.a)) {
+        if (isZero(coeffs.b)) return isZero(coeffs.c) ? INF_ROOTS : NO_ROOTS;
 
-    assert(!isnan(a));
-    assert(!isnan(b));
-    assert(!isnan(c));
-
-    if (isZero(a)) {
-        if (isZero(b)) return isZero(c) ? INF_ROOTS : NO_ROOTS;
-
-        return solveLinear(coeffs + 1, nCoeffs - 1, roots, nRoots - 1);
+        return solveLinear({coeffs.b, coeffs.c}, roots);
     }
 
-    double D = b*b - 4*a*c;
+    double D = coeffs.b*coeffs.b - 4*coeffs.a*coeffs.c;
     if (D < 0) return NO_ROOTS;
 
     if (D > 0) {
         double sqD = sqrt(D);
-        roots[0] = (-b + sqD) / 2 / a;
-        roots[1] = (-b - sqD) / 2 / a;
+        roots->x1 = (-coeffs.b + sqD) / 2 / coeffs.a;
+        roots->x2 = (-coeffs.b - sqD) / 2 / coeffs.a;
 
-        if (roots[0] > roots[1]){
-            double temp = roots[0];
-            roots[0] = roots[1];
-            roots[1] = temp;
+        if (roots->x1 > roots->x2){
+            double temp = roots->x1;
+            roots->x1 = roots->x2;
+            roots->x2 = temp;
         }
         return TWO_ROOTS;
     }
 
-    roots[0] = -b / 2 / a;
+    roots->x1 = -coeffs.b / 2 / coeffs.a;
     return ONE_ROOT;
 }

@@ -5,11 +5,7 @@
 #include <math.h>
 #include <assert.h>
 
-
-const double EPSILON = 0.000001;
-
-const int MAX_NCOEFFS = 3;
-const int MAX_NROOTS  = 2; 
+const double EPSILON = 0.000001; 
 
 enum NUMBERS_OF_ROOTS {
     NO_ROOTS  = 0,
@@ -18,20 +14,34 @@ enum NUMBERS_OF_ROOTS {
     INF_ROOTS = 3
 };
 
-// struct ???
+struct sqCoeffs {
+    double a = 0;
+    double b = 0;
+    double c = 0;
+};
+
+struct linCoeffs {
+    double a = 0;
+    double b = 0;
+};
+
+struct eqRoots{
+    double x1 = 0;
+    double x2 = 0;
+};
 
 bool isZero (double number);
 
-int solveLinear(double coeffs[], const int nCoeffs, double roots[], const int nRoots);
+int solveLinear(linCoeffs coeffs, eqRoots* roots);
 
-int solveSquare(double coeffs[], const int nCoeffs, double roots[], const int nRoots);
+int solveSquare(sqCoeffs coeffs, eqRoots* roots);
 
 void clear(void);
 
 double getCoeff(void);
 
-void inputCoeffs(double koeffs[], int nKoeffsMax);
+sqCoeffs inputCoeffs(void);
 
-void printRoots(int nRoots, double roots[]);
+void printRoots(int nRoots, eqRoots roots);
 
 #endif //__SQUARE_SOLVER_H__

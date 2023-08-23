@@ -1,24 +1,22 @@
 #include "square_solver.h"
 
-// TODO: read about multiple cpp files
-//       fix includes (only h)
-//       linker
+// TODO
+// unit tests
+// documentation (doxygen)
 
 int main()
 {
     printf("# Square solver\n");
     printf("# Solves the equation ax^2 + bx + c = 0\n\n");
 
-    double coeffs[MAX_NCOEFFS] = {};
-
     printf("Enter a, b, c: ");
 
-    inputCoeffs(coeffs, MAX_NCOEFFS);
+    sqCoeffs coeffs = inputCoeffs();
 
-    printf("\nYour coeffs are:\na = %lg, b = %lg, c = %lg\n\n", coeffs[0], coeffs[1], coeffs[2]);
+    printf("\nYour coeffs are:\na = %lg, b = %lg, c = %lg\n\n", coeffs.a, coeffs.b, coeffs.c);
 
-    double roots[MAX_NROOTS] = {};
-    int nRoots = solveSquare(coeffs, MAX_NCOEFFS, roots, MAX_NROOTS);
+    struct eqRoots roots = {};
+    int nRoots = solveSquare(coeffs, &roots);
 
     printRoots(nRoots, roots);
 }

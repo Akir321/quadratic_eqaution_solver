@@ -1,15 +1,15 @@
 #include "square_solver.h"
 
-void printRoots(int nRoots, double roots[])
+void printRoots(int nRoots, eqRoots roots)
 {
     switch(nRoots) {
     case NO_ROOTS: printf("No roots\n");
             break;
 
-    case ONE_ROOT: printf("1 root\nx = %lg\n", roots[0]);
+    case ONE_ROOT: printf("1 root\nx = %lg\n", roots.x1);
             break;
 
-    case TWO_ROOTS: printf("2 roots\nx1 = %lg\nx2 = %lg\n", roots[0], roots[1]);
+    case TWO_ROOTS: printf("2 roots\nx1 = %lg\nx2 = %lg\n", roots.x1, roots.x2);
             break;
 
     case INF_ROOTS: printf("Any number\n");
@@ -49,11 +49,13 @@ double getCoeff()
     return coeff;
 }
 
-
-void inputCoeffs(double coeffs[], int nCoeffsMax)
+sqCoeffs inputCoeffs()
 {
+    sqCoeffs temp = {};
 
-    for(int i = 0; i < nCoeffsMax; i++) {
-        coeffs[i] = getCoeff();
-    }
+    temp.a = getCoeff();
+    temp.b = getCoeff();
+    temp.c = getCoeff();
+
+    return temp;
 }
