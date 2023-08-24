@@ -1,7 +1,7 @@
 #include "square_solver.h"
 #include "unit_tester.h"
 
-// TODO: separate header for unit_tester
+#include <stdio.h>
 
 const int N_TESTS = 6;
 
@@ -23,10 +23,15 @@ int testSolveSquare(const testData* data)
 
     if (nRoots != data->nRoots || !(rootsEqual(roots, data->roots, nRoots))){
 
-        printf ("#TEST %d FAILED\n OUTPUT: x1 = %lf, x2 = %lf, nRoots = %d\n",
-                                 data->testNumber, roots.x1, roots.x2, nRoots);
+        printf ("#TEST %d FAILED\n", data->testNumber);
 
-        printf (" EXPECTED x1 = %lf, x2 = %lf, nRoots = %d\n",
+        printf (" COEFFICIENTS: a = %lf, b = %lf, c = %lf\n", data->coeffs.a, 
+                                data->coeffs.b, data->coeffs.c);
+
+        printf (" OUTPUT:   x1 = %lf, x2 = %lf, nRoots = %d\n",
+                                roots.x1, roots.x2, nRoots);
+
+        printf (" EXPECTED: x1 = %lf, x2 = %lf, nRoots = %d\n",
                      data->roots.x1, data->roots.x2, data->nRoots);
         return 0;
     }
@@ -35,24 +40,51 @@ int testSolveSquare(const testData* data)
     return 1;
 }
 
-// SS - ?
-// print coeffs when failed
-// tests using FILE *
 void runTestSolveSquare()
 {
     int passedCount = 0;
 
-     const testData data[N_TESTS] = 
-        {{.coeffs = {1, 2,  1}, .roots = {-1, 0}, .nRoots = ONE_ROOT,  .testNumber = 1}, 
-         {.coeffs = {0, 0,  0}, .roots = { 0, 0}, .nRoots = INF_ROOTS, .testNumber = 2},
-         {.coeffs = {1, 0, -4}, .roots = {-2, 2}, .nRoots = TWO_ROOTS, .testNumber = 3},
-         {.coeffs = {0, 0, -4}, .roots = { 0, 0}, .nRoots = NO_ROOTS,  .testNumber = 4},
-         {.coeffs = {0, 1, -4}, .roots = { 4, 0}, .nRoots = ONE_ROOT,  .testNumber = 5},
-         {.coeffs = {1, 0,  0}, .roots = { 0, 0}, .nRoots = ONE_ROOT,  .testNumber = 6}};
+    const char* fileName = "test.txt";
 
-    for(int i = 0; i < N_TESTS; i++){
-        passedCount += testSolveSquare(&data[i]);
+    FILE *fp = fopen(fileName, "r");
+
+    if (fp == NULL){
+        printf("ERROR: TEST FILE NOT FOUND\n");
+        return;
     }
+
+    //char a[128];
+    //fscanf(fp, "%128[^:]", a);
+    //printf("%s", a);
+
+    testData data = {{0, 0, 0}, {0, 0}, 0, 0};
+
+    int scanned = 0;
+
+    while (scanned != EOF) {
+        scanned = fscanf(fp, "%d %lf %lf %lf %lf %lf %d", 
+                         &data.testNumber, 
+                         &data.coeffs.a, &data.coeffs.b, &data.coeffs.c,
+                         &data.roots.x1, &data.roots.x2,
+                         &data.nRoots);
+
+        if (scanned == 0)  {
+            int symbol = fgetc(fp);
+
+            if (symbol != ']' and symbol != '[') {
+                printf("BAD CHARACTERS IN TEST FILE\n");
+            }
+        }
+        else if (scanned < 7){
+            printf("ERROR: COULDN'T READ THE EXPECTED AMOUNT OF PARAMETERS\n");
+        }
+        else {
+            passedCount += testSolveSquare(&data);
+        }
+    } 
+
+    // regular expressions
+    // scanf("%[^:]");
     
     printf("##PASSED %d TESTS, FAILED %d TESTS\n", passedCount, N_TESTS - passedCount);
 }
