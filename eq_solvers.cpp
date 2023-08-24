@@ -1,13 +1,22 @@
 #include "square_solver.h"
 
+bool doubleEqual(double a, double b)
+{
+    assert(!isnan(a));
+    assert(!isnan(b));
+
+    assert(isfinite(a));
+    assert(isfinite(b));
+    
+    return fabs(a - b) < EPSILON ?  true : false; 
+}
+
 bool isZero (double number)
 {
     assert(!isnan(number));
     assert(isfinite(number));
 
-    if (number < 0) number = -number;
-    if (number < EPSILON) return true;
-    return false;
+    return doubleEqual(number, 0);
 }
 
 int solveLinear(linCoeffs coeffs, eqRoots* roots)
@@ -17,6 +26,8 @@ int solveLinear(linCoeffs coeffs, eqRoots* roots)
 
     assert(!isnan(coeffs.a));
     assert(!isnan(coeffs.b));
+
+    assert(roots != nullptr);
 
     if (isZero(coeffs.a)) return isZero(coeffs.b) ? INF_ROOTS : NO_ROOTS;
     roots->x1 = - coeffs.b / coeffs.a;
@@ -32,6 +43,8 @@ int solveSquare(sqCoeffs coeffs, eqRoots* roots)
     assert(!isnan(coeffs.a));
     assert(!isnan(coeffs.b));
     assert(!isnan(coeffs.a));
+
+    assert(roots != nullptr);
 
     if (isZero(coeffs.a)) {
         if (isZero(coeffs.b)) return isZero(coeffs.c) ? INF_ROOTS : NO_ROOTS;

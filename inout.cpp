@@ -1,4 +1,5 @@
 #include "square_solver.h"
+#include "inout.h"
 
 void printRoots(int nRoots, eqRoots roots)
 {

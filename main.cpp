@@ -1,8 +1,5 @@
 #include "square_solver.h"
-
-// TODO
-// unit tests
-// documentation (doxygen)
+#include "inout.h"
 
 int main()
 {
