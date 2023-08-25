@@ -4,20 +4,16 @@
 
 int main()
 {
-    printf("# " green "Square solver\n" endColor);
-    printf("# " green "Solves the equation ax^2 + bx + c = 0\n\n" endColor);
+    printf("# " RED("Square solver\n"));
+    printf("# " GREEN("Solves the equation ax^2 + bx + c = 0\n\n"));
 
-    printf(green "Enter a, b, c: " endColor);
-
+    printf(GREEN("Enter a, b, c: "));
     sqCoeffs coeffs = inputCoeffs();
-
-    printf(green "\nYour coeffs are:\na = %lg, b = %lg, c = %lg\n\n" endColor,
-                                         coeffs.a, coeffs.b, coeffs.c);
+    printf(GREEN("\nYour coeffs are:\na = %lg, b = %lg, c = %lg\n\n"), coeffs.a, coeffs.b, coeffs.c);
 
     struct eqRoots roots = {};
     int nRoots = solveSquare(&coeffs, &roots);
 
     printRoots(nRoots, roots);
-
-    printf("#"  green "Your equation is solved\n" endColor);
+    printf("# "  GREEN("Your equation is solved\n"));
 }

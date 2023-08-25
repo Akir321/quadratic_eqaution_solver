@@ -15,7 +15,7 @@ const double EPSILON = 0.000001;
  * @brief Enumerates possible amounts of roots
  * 
  */
-enum NUMBERS_OF_ROOTS {
+enum numberOfRoots {
     NO_ROOTS  =  0,
     ONE_ROOT  =  1,
     TWO_ROOTS =  2,
@@ -27,9 +27,9 @@ enum NUMBERS_OF_ROOTS {
  * 
  */
 struct sqCoeffs {
-    double a = 0;
-    double b = 0;
-    double c = 0;
+    double a = NAN;
+    double b = NAN;
+    double c = NAN;
 };
 
 /**
@@ -37,8 +37,8 @@ struct sqCoeffs {
  * 
  */
 struct linCoeffs {
-    double a = 0;
-    double b = 0;
+    double a = NAN;
+    double b = NAN;
 };
 
 /**
@@ -46,8 +46,8 @@ struct linCoeffs {
  * 
  */
 struct eqRoots{
-    double x1 = 0;
-    double x2 = 0;
+    double x1 = NAN;
+    double x2 = NAN;
 };
 
 /**
@@ -75,7 +75,7 @@ bool doubleEqual(double a, double b);
  * @param [out] roots 
  * @return int The amount of roots this equation has 
  */
-int solveLinear(const linCoeffs* coeffs, eqRoots* roots);
+numberOfRoots solveLinear(const linCoeffs* coeffs, eqRoots* roots);
 
 /**
  * @brief Solves a quadratic equation
@@ -84,6 +84,13 @@ int solveLinear(const linCoeffs* coeffs, eqRoots* roots);
  * @param [out] roots 
  * @return int The amount of roots this equation has
  */
-int solveSquare(const sqCoeffs* coeffs, eqRoots* roots);
+numberOfRoots solveSquare(const sqCoeffs* coeffs, eqRoots* roots);
+
+/**
+ * @brief Swaps two double variables
+ * 
+ * @param [in, out] a, b 
+ */
+void swap(double *a, double *b);
 
 #endif //__SQUARE_SOLVER_H__
