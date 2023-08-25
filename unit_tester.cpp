@@ -23,7 +23,7 @@ int testSolveSquare(const testData* data)
 
     if (nRoots != data->nRoots || !(rootsEqual(roots, data->roots, nRoots))){
 
-        printf ("#TEST %d FAILED\n", data->testNumber);
+        printf ("#TEST %d %s FAILED\n", data->testNumber, data->name);
 
         printf (" COEFFICIENTS: a = %lf, b = %lf, c = %lf\n", data->coeffs.a, 
                                 data->coeffs.b, data->coeffs.c);
@@ -36,7 +36,7 @@ int testSolveSquare(const testData* data)
         return 0;
     }
 
-    printf ("#TEST %d OK\n", data->testNumber);
+    printf ("#TEST %d %s OK\n", data->testNumber, data->name);
     return 1;
 }
 
@@ -53,38 +53,38 @@ void runTestSolveSquare()
         return;
     }
 
-    //char a[128];
-    //fscanf(fp, "%128[^:]", a);
-    //printf("%s", a);
-
     testData data = {{0, 0, 0}, {0, 0}, 0, 0};
 
     int scanned = 0;
 
-    while (scanned != EOF) {
-        scanned = fscanf(fp, "%d %lf %lf %lf %lf %lf %d", 
+    while (1) {
+
+        // test file has a special format
+        scanned = fscanf(fp, "%32[^:]: [%d %lf %lf %lf %lf %lf %d]\n", 
+                         data.name,
                          &data.testNumber, 
                          &data.coeffs.a, &data.coeffs.b, &data.coeffs.c,
                          &data.roots.x1, &data.roots.x2,
                          &data.nRoots);
 
-        if (scanned == 0)  {
+        if(scanned == EOF) {
+            break;
+        }
+
+        if (scanned == 0) {
             int symbol = fgetc(fp);
 
-            if (symbol != ']' and symbol != '[') {
+            if (symbol != ']' && symbol != '[') {
                 printf("BAD CHARACTERS IN TEST FILE\n");
             }
         }
-        else if (scanned < 7){
+        else if (scanned < 7) {
             printf("ERROR: COULDN'T READ THE EXPECTED AMOUNT OF PARAMETERS\n");
         }
         else {
             passedCount += testSolveSquare(&data);
         }
     } 
-
-    // regular expressions
-    // scanf("%[^:]");
     
     printf("##PASSED %d TESTS, FAILED %d TESTS\n", passedCount, N_TESTS - passedCount);
 }

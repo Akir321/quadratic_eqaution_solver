@@ -1,0 +1,6 @@
+full_square: [1 1 2 1 -1 0 1]
+all_zero: [2 0 0 0 0 0 -1]
+b_zero: [3 1 0 -4 -2 2 2]
+ab_zero: [4 0 0 -4 0 0 0]
+bad_nroots: [5 0 1 -4 4 0 0]
+bc_zero: [6 1 0 0 0 0 1]

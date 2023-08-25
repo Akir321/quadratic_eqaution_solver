@@ -3,6 +3,8 @@
 
 #include "square_solver.h"
 
+const int MAX_NAME_LENGTH = 32;
+
 /**
  * @brief A special structure for easy test conducting
  * 
@@ -12,6 +14,7 @@ struct testData{
     eqRoots roots;
     int nRoots;
     int testNumber;
+    char name[MAX_NAME_LENGTH];
 };
 
 /**
@@ -29,7 +32,7 @@ int testSolveSquare(const testData* data);
  * @brief Initializes all the pre-written tests of solveSquare()
  * 
  */
-void runTestSolveSquare(void);
+void runTestSolveSquare(void);   
 
 /**
  * @brief Determines if the roots that solveSquare() has calculated are equal to the reference roots
