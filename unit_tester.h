@@ -4,7 +4,7 @@
 #include "square_solver.h"
 
 const int MAX_NAME_LENGTH = 32;
-const int AMOUNT_OF_PARAMETERS = 7;
+const int AMOUNT_OF_PARAMETERS = 7; 
 
 /**
  * @brief A special structure for easy test conducting
