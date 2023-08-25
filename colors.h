@@ -10,5 +10,6 @@
 #define YELLOW(str)        "\033[33m"   str defaultColor
 #define BLUE(str)          "\033[36m"   str defaultColor
 #define RED(str)           "\033[31m"   str defaultColor
+#define MAGENTA(str)       "\033[35m"   str defaultColor
 
 #endif //__COLORS_H__

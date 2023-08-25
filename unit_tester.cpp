@@ -4,6 +4,25 @@
 #include "square_solver.h"
 #include "unit_tester.h"
 
+int main(int argc, char *argv[])
+{
+    printf("##" YELLOW("STARTING TESTING SOLVE_SQUARE\n"));
+    const char *defaultFileName = "test.txt";
+
+    if (argc <= 1) {
+        printf(RED("NO FILE NAME GIVEN\n"));
+        printf(RED("RUNNING DEFAULT TEST INSTEAD\n"));
+        printf(MAGENTA("#[%s]\n"), defaultFileName);
+        runTestSolveSquare(defaultFileName);
+    }
+    
+    for (int i = 1; i < argc; i++){
+        char *testFileName = argv[i];
+        printf(MAGENTA("#[%s]\n"), testFileName);
+        runTestSolveSquare(testFileName);
+    }
+}
+
 bool rootsEqual(eqRoots roots, eqRoots rootsRef, int nRoots)
 {
     switch (nRoots){
@@ -50,10 +69,9 @@ int testSolveSquare(const testData* data)
     return 1;
 }
 
-void runTestSolveSquare()
+void runTestSolveSquare(const char *fileName)
 {
     int passedCount = 0;
-    const char* fileName = "test.txt";
     FILE *fp = fopen(fileName, "r");
 
     if (fp == NULL) {
@@ -102,10 +120,4 @@ void runTestSolveSquare()
         printf("##" GREEN("PASSED %d TESTS,") RED(" FAILED %d TESTS\n"), 
                passedCount, test_count - passedCount);
     }
-}
-
-int main()
-{
-    printf("##" YELLOW("STARTING TESTING SOLVE_SQUARE\n"));
-    runTestSolveSquare();
 }

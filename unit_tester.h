@@ -33,7 +33,7 @@ int testSolveSquare(const testData* data);
  * @brief Initializes all the pre-written tests of solveSquare()
  * 
  */
-void runTestSolveSquare(void);   
+void runTestSolveSquare(const char *testFileName);      
 
 /**
  * @brief Determines if the roots that solveSquare() has calculated are equal to the reference roots
