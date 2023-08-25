@@ -1,22 +1,23 @@
 #include "square_solver.h"
 #include "inout.h"
+#include "colors.h"
 
 void printRoots(int nRoots, eqRoots roots)
 {
     switch(nRoots) {
-    case NO_ROOTS: printf("No roots\n");
+    case NO_ROOTS: printf(red "No roots\n" endColor);
             break;
 
-    case ONE_ROOT: printf("1 root\nx = %lg\n", roots.x1);
+    case ONE_ROOT: printf(yellow "1 root\nx = %lg\n" endColor, roots.x1);
             break;
 
-    case TWO_ROOTS: printf("2 roots\nx1 = %lg\nx2 = %lg\n", roots.x1, roots.x2);
+    case TWO_ROOTS: printf(green "2 roots\nx1 = %lg\nx2 = %lg\n" endColor, roots.x1, roots.x2);
             break;
 
-    case INF_ROOTS: printf("Any number\n");
+    case INF_ROOTS: printf(blue "Any number\n" endColor);
                     break;
 
-    default: printf("main(): ERROR: nRoots = %d\n", nRoots);
+    default: printf(red "main(): ERROR: nRoots = %d\n" endColor, nRoots);
              break;
 
     }
@@ -32,6 +33,8 @@ double getCoeff()
     double coeff = 0;
     bool scanned = false;
 
+    printf(greenCursive);
+
     while (!scanned){
 
         if(scanf("%lf", &coeff)) {
@@ -42,7 +45,7 @@ double getCoeff()
             scanned = true;
         }
         else {
-            printf("\nYou need to enter numbers\n\n");
+            printf(redCursive "\nYou need to enter numbers\n\n" greenCursive);
             clear();
         }
     }

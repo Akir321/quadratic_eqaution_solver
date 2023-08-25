@@ -1,5 +1,6 @@
 #include "square_solver.h"
 #include "unit_tester.h"
+#include "colors.h"
 
 #include <stdio.h>
 
@@ -23,20 +24,21 @@ int testSolveSquare(const testData* data)
 
     if (nRoots != data->nRoots || !(rootsEqual(roots, data->roots, nRoots))){
 
-        printf ("#TEST %d %s FAILED\n", data->testNumber, data->name);
+        printf ("#" red "TEST %d" endColor " %s " red "FAILED" endColor "\n",
+                                             data->testNumber, data->name);
 
-        printf (" COEFFICIENTS: a = %lf, b = %lf, c = %lf\n", data->coeffs.a, 
+        printf (red " COEFFICIENTS: a = %lf, b = %lf, c = %lf\n" endColor, data->coeffs.a, 
                                 data->coeffs.b, data->coeffs.c);
 
-        printf (" OUTPUT:   x1 = %lf, x2 = %lf, nRoots = %d\n",
+        printf (red " OUTPUT:   x1 = %lf, x2 = %lf, nRoots = %d\n" endColor,
                                 roots.x1, roots.x2, nRoots);
 
-        printf (" EXPECTED: x1 = %lf, x2 = %lf, nRoots = %d\n",
+        printf (green " EXPECTED: x1 = %lf, x2 = %lf, nRoots = %d\n" endColor,
                      data->roots.x1, data->roots.x2, data->nRoots);
         return 0;
     }
 
-    printf ("#TEST %d %s OK\n", data->testNumber, data->name);
+    printf ("#" green "TEST %d" endColor " %s" green " OK\n" endColor, data->testNumber, data->name);
     return 1;
 }
 
@@ -49,7 +51,7 @@ void runTestSolveSquare()
     FILE *fp = fopen(fileName, "r");
 
     if (fp == NULL){
-        printf("ERROR: TEST FILE NOT FOUND\n");
+        printf(red "ERROR:" redCursive "TEST FILE NOT FOUND\n" endColor);
         return;
     }
 
@@ -57,8 +59,7 @@ void runTestSolveSquare()
 
     int scanned = 0;
 
-    while (1) {
-
+    while (true) {
         // test file has a special format
         scanned = fscanf(fp, "%32[^:]: [%d %lf %lf %lf %lf %lf %d]\n", 
                          data.name,
@@ -67,7 +68,7 @@ void runTestSolveSquare()
                          &data.roots.x1, &data.roots.x2,
                          &data.nRoots);
 
-        if(scanned == EOF) {
+        if (scanned == EOF) {
             break;
         }
 
@@ -75,22 +76,28 @@ void runTestSolveSquare()
             int symbol = fgetc(fp);
 
             if (symbol != ']' && symbol != '[') {
-                printf("BAD CHARACTERS IN TEST FILE\n");
+                printf(red "ERROR:" redCursive " BAD CHARACTERS IN TEST FILE\n" endColor);
             }
         }
         else if (scanned < 7) {
-            printf("ERROR: COULDN'T READ THE EXPECTED AMOUNT OF PARAMETERS\n");
+            printf(red "ERROR:" redCursive " COULDN'T READ THE EXPECTED AMOUNT OF PARAMETERS\n" endColor);
         }
         else {
             passedCount += testSolveSquare(&data);
         }
     } 
     
-    printf("##PASSED %d TESTS, FAILED %d TESTS\n", passedCount, N_TESTS - passedCount);
+    if (passedCount == N_TESTS){
+        printf ("##" green "PASSED ALL %d TESTS" endColor, N_TESTS);
+    }
+    else {
+        printf("##" green "PASSED %d TESTS," red " FAILED %d TESTS\n" endColor, 
+                                        passedCount, N_TESTS - passedCount);
+    }
 }
 
 int main()
 {
-    printf("##STARTING TESTING SOLVE_SQUARE\n");
+    printf("##" yellow "STARTING TESTING SOLVE_SQUARE\n" endColor);
     runTestSolveSquare();
 }
