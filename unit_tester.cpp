@@ -19,7 +19,7 @@ bool rootsEqual(eqRoots roots, eqRoots rootsRef, int nRoots)
 int testSolveSquare(const testData* data)
 {
     eqRoots roots = {0, 0};
-    int nRoots = solveSquare(data->coeffs, &roots);
+    int nRoots = solveSquare(&(data->coeffs), &roots);
 
     if (nRoots != data->nRoots || !(rootsEqual(roots, data->roots, nRoots))){
 

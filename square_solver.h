@@ -75,7 +75,7 @@ bool doubleEqual(double a, double b);
  * @param [out] roots 
  * @return int The amount of roots this equation has 
  */
-int solveLinear(linCoeffs coeffs, eqRoots* roots);
+int solveLinear(const linCoeffs* coeffs, eqRoots* roots);
 
 /**
  * @brief Solves a quadratic equation
@@ -84,6 +84,6 @@ int solveLinear(linCoeffs coeffs, eqRoots* roots);
  * @param [out] roots 
  * @return int The amount of roots this equation has
  */
-int solveSquare(sqCoeffs coeffs, eqRoots* roots);
+int solveSquare(const sqCoeffs* coeffs, eqRoots* roots);
 
 #endif //__SQUARE_SOLVER_H__
