@@ -13,7 +13,7 @@ int main()
     printf("\nYour coeffs are:\na = %lg, b = %lg, c = %lg\n\n", coeffs.a, coeffs.b, coeffs.c);
 
     struct eqRoots roots = {};
-    int nRoots = solveSquare(coeffs, &roots);
+    int nRoots = solveSquare(&coeffs, &roots);
 
     printRoots(nRoots, roots);
 }
