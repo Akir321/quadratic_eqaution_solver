@@ -11,16 +11,7 @@ CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef\
 
 all: main
 
-inout.o: inout.cpp
-	$(CC) -c $< -o $@ $(CFLAGS)
-
-eq_solvers.o: eq_solvers.cpp
-	$(CC) -c $< -o $@ $(CFLAGS)
-
-main.o: main.cpp
-	$(CC) -c $< -o $@ $(CFLAGS)
-
-unit_tester.o: unit_tester.cpp
+%.o: %.cpp
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 main: inout.o eq_solvers.o main.o
@@ -28,3 +19,6 @@ main: inout.o eq_solvers.o main.o
 
 test: eq_solvers.o unit_tester.o
 	$(CC) eq_solvers.o unit_tester.o -o solve_square_tester $(CFLAGS)
+
+clean:
+	rm *.o
