@@ -29,6 +29,6 @@ sqCoeffs inputCoeffs(void);
  * @param [in] nRoots 
  * @param [in] roots 
  */
-void printRoots(int nRoots, eqRoots roots);
+void printRoots(int nRoots, const eqRoots *roots);
 
 #endif //__INOUT_H__

@@ -1,10 +1,6 @@
 #ifndef __SQUARE_SOLVER_H__
 #define __SQUARE_SOLVER_H__
 
-#include <stdio.h>
-#include <math.h>
-#include <assert.h>
-
 /**
  * @brief The precision of comparing
  * 
@@ -27,9 +23,9 @@ enum numberOfRoots {
  * 
  */
 struct sqCoeffs {
-    double a = NAN;
-    double b = NAN;
-    double c = NAN;
+    double a;
+    double b;
+    double c;
 };
 
 /**
@@ -37,8 +33,8 @@ struct sqCoeffs {
  * 
  */
 struct linCoeffs {
-    double a = NAN;
-    double b = NAN;
+    double a;
+    double b;
 };
 
 /**
@@ -46,8 +42,8 @@ struct linCoeffs {
  * 
  */
 struct eqRoots{
-    double x1 = NAN;
-    double x2 = NAN;
+    double x1;
+    double x2;
 };
 
 /**

@@ -4,7 +4,7 @@
 #include "square_solver.h"
 
 const int MAX_NAME_LENGTH = 32;
-const int AMOUNT_OF_PARAMETERS = 7; 
+const int AMOUNT_OF_PARAMETERS = 8; 
 
 /**
  * @brief A special structure for easy test conducting
@@ -43,6 +43,6 @@ void runTestSolveSquare(const char *testFileName);
  * @return true if the roots are equal
  * @return false if the roots are not equal
  */
-bool rootsEqual(eqRoots roots, eqRoots rootsRef, int nRoots);
+bool rootsEqual(const eqRoots *roots, const eqRoots *rootsRef, int nRoots);
 
 #endif //__UNIT_TESTER_H__

@@ -1,3 +1,5 @@
+#include <assert.h>
+#include <math.h>
 #include "square_solver.h"
 
 bool doubleEqual(double a, double b)
@@ -19,7 +21,7 @@ bool isZero (double number)
     return doubleEqual(number, 0);
 }
 
-numberOfRoots solveLinear(const linCoeffs* coeffs, eqRoots* roots)
+numberOfRoots solveLinear(const linCoeffs *coeffs, eqRoots *roots)
 {
     assert(isfinite(coeffs->a));
     assert(isfinite(coeffs->b));
@@ -37,7 +39,7 @@ numberOfRoots solveLinear(const linCoeffs* coeffs, eqRoots* roots)
     return ONE_ROOT;
 }
 
-numberOfRoots solveSquare(const sqCoeffs* coeffs, eqRoots* roots)
+numberOfRoots solveSquare(const sqCoeffs *coeffs, eqRoots *roots)
 {
     assert(isfinite(coeffs->a));
     assert(isfinite(coeffs->b));
@@ -84,6 +86,9 @@ void swap(double *a, double *b)
     // *b -= *a;
     // *b = -*b;
     // *a -= *b;
+
+    assert(a);
+    assert(b);
     
     double temp = *a;
     *a = *b;

@@ -1,20 +1,25 @@
+#include <math.h>
+#include <assert.h>
+#include <stdio.h>
 #include "square_solver.h"
 #include "inout.h"
 #include "colors.h"
 
-void printRoots(int nRoots, eqRoots roots)
+void printRoots(int nRoots, const eqRoots *roots)
 {
+    assert(roots);
+
     switch(nRoots) {
         case NO_ROOTS:
-            printf(GREEN("No roots\n"));
+            printf(RED("No roots\n"));
             break;
 
         case ONE_ROOT:
-            printf(YELLOW("1 root\nx = %lg\n"), roots.x1);
+            printf(YELLOW("1 root\nx = %lg\n"), roots->x1);
             break;
 
         case TWO_ROOTS:
-            printf(GREEN("2 roots\nx1 = %lg\nx2 = %lg\n"), roots.x1, roots.x2);
+            printf(GREEN("2 roots\nx1 = %lg\nx2 = %lg\n"), roots->x1, roots->x2);
             break;
 
         case INF_ROOTS:
@@ -37,18 +42,16 @@ double getCoeff()
 {
     double coeff = 0;
     bool scanned = false;
-    printf(greenCursive); // the user types with green cursive
+    printf(greenItalics); // the user types with green italics
 
-    while (!scanned){
+    while (!scanned) {
 
         if (scanf("%lf", &coeff)) {
-            assert(isfinite(coeff));
-            assert(!isnan(coeff));
             scanned = true;
         }
         else {
-            printf(RED_CURSIVE("\nYou need to enter numbers\n\n"));
-            printf(greenCursive);
+            printf(RED_ITALICS("\nYou need to enter numbers\n\n"));
+            printf(greenItalics);
             clear();
         }
     }

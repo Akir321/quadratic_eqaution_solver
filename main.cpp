@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <math.h>
 #include "square_solver.h"
 #include "inout.h"
 #include "colors.h"
@@ -11,9 +13,9 @@ int main()
     sqCoeffs coeffs = inputCoeffs();
     printf(GREEN("\nYour coeffs are:\na = %lg, b = %lg, c = %lg\n\n"), coeffs.a, coeffs.b, coeffs.c);
 
-    struct eqRoots roots = {};
+    struct eqRoots roots = {NAN, NAN};
     int nRoots = solveSquare(&coeffs, &roots);
 
-    printRoots(nRoots, roots);
+    printRoots(nRoots, &roots);
     printf("# "  GREEN("Your equation is solved\n"));
 }

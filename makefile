@@ -15,15 +15,6 @@ HEADERS_TEST = unit_tester.h square_solver.h colors.h
 OBJ_MAIN = inout.o eq_solvers.o main.o
 OBJ_TEST = eq_solvers.o unit_tester.o
 
-# TEST_DIR := test
-# MAIN_DIR := main
-
-# SRC_TEST := $(wildcard $(TEST_DIR)/*.cpp)
-# OBJ_TEST := $(patsubst %.cpp, %.o, $(SRC_TEST))
-
-# separate folder for .o
-# variable for .o
-
 all: main
 
 %.o: %.cpp
